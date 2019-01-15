@@ -1,0 +1,44 @@
+# http://www.appveyor.com/docs/appveyor-yml
+
+clone_depth: 10
+
+version: "{build}"
+
+environment:
+  matrix:
+    - nodejs_version: "8"
+      platform: x64
+    - nodejs_version: "8"
+      platform: x86
+    - nodejs_version: "10"
+      platform: x64
+    - nodejs_version: "10"
+      platform: x86
+
+matrix:
+  fast_finish: true
+
+install:
+  - ps: Install-Product node $env:nodejs_version $env:platform
+  # Install newer npm
+  - npm install -g npm
+  - ps: $env:path = $env:appdata + "\npm;" + $env:path
+  # Print some information
+  - node -v
+  - npm -v
+  # Build
+  - npm install
+  - npm test
+  - ps: >-
+      if ($env:APPVEYOR_REPO_COMMIT_MESSAGE.ToLower().Contains("[publish binary]")) {
+        cmd /c 'node_modules\.bin\node-pre-gyp --msvs_version=2015 package publish 2>&1'
+      }
+
+cache:
+  - 'node_modules -> package.json'                  # local npm modules
+
+build: off
+
+test: off
+
+deploy: off

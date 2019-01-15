@@ -1,0 +1,31 @@
+{
+  "name": "imagemin-jimp",
+  "version": "0.0.1",
+  "description": "",
+  "main": "./src/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com/jaeh/imagemin-jimp"
+  },
+  "author": "Jascha Ehrenreich <jascha@jaeh.at>",
+  "license": "MIT",
+  "dependencies": {
+    "jimp": "0.6.0"
+  },
+  "engines": {
+    "node": ">=6"
+  },
+  "devDependencies": {
+    "@magic/test": "0.0.2"
+  },
+  "files": [
+    "src"
+  ],
+  "scripts": {
+    "start": "t -p",
+    "test": "t",
+    "format": "f -w",
+    "format:check": "f",
+    "calls": "calls"
+  }
+}
