@@ -2,6 +2,11 @@
 
 use [jimp](https://www.npmjs.com/package/jimp) to resize images.
 
+[![NPM version][npm-image]][npm-url]
+[![Linux Build Status][travis-image]][travis-url]
+[![Windows Build Status][appveyor-image]][appveyor-url]
+[![Coverage Status][coveralls-image]][coveralls-url]
+[![Greenkeeper badge][greenkeeper-image]][greenkeeper-url]
 
 ### install
 ```js
