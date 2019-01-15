@@ -29,8 +29,8 @@ imagemin(input, output, {
 
 [npm-image]: https://img.shields.io/npm/v/jaeh/imagemin-jimp.svg
 [npm-url]: https://www.npmjs.com/package/jaeh/imagemin-jimp
-[travis-image]: https://api.travis-ci.org/jaeh/imagemin-jimp.svg?branch=master
-[travis-url]: https://travis-ci.org/jaeh/imagemin-jimp
+[travis-image]: https://api.travis-ci.com/jaeh/imagemin-jimp.svg?branch=master
+[travis-url]: https://travis-ci.com/jaeh/imagemin-jimp
 [appveyor-image]: https://img.shields.io/appveyor/ci/jaeh/imagemin-jimp/master.svg
 [appveyor-url]: https://ci.appveyor.com/project/jaeh/imagemin-jimp/branch/master
 [coveralls-image]: https://coveralls.io/repos/github/jaeh/imagemin-jimp/badge.svg
