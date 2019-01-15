@@ -3,11 +3,18 @@ const Jimp = require('jimp')
 module.exports = options => data => {
   options = Object.assign(
     {
-      width: 2000,
-      height: 1000,
+      width: Jimp.AUTO, // maximum width for images
+      height: Jimp.AUTO, // maximum height for images
+      grow: false, // never make images larger than they are.
     },
     options,
   )
+
+  // do not resize if width and height are not set
+  // Jimp.AUTO === -1
+  if (options.width <= 0 && options.height <= 0) {
+    return data
+  }
 
   if (!Buffer.isBuffer(data)) {
     return Promise.reject(new TypeError('Expected a buffer'))
@@ -15,18 +22,33 @@ module.exports = options => data => {
 
   return Jimp.read(data)
     .then(img => {
-      if (img.bitmap.width < options.width && img.bitmap.width < options.height) {
-        return data
+      let w = options.width
+      let h = options.height
+      const isPortrait = img.bitmap.width > img.bitmap.height
+
+      // image should not grow
+      if (!options.grow) {
+        if (img.bitmap.width < options.width) {
+          w = img.bitmap.width
+        }
+        if (img.bitmap.height < options.height) {
+          h = img.bitmap.height
+        }
       }
 
-      if (img.bitmap.height < options.height) {
-        options.height = Jimp.AUTO
-      } else if (img.bitmap.width < options.width) {
-        options.width = Jimp.AUTO
+      // setting the smaller dimension to auto to prevent stretching
+      if (isPortrait) {
+        if (h !== Jimp.AUTO) {
+          w = Jimp.AUTO
+        }
+      } else {
+        if (w !== Jimp.AUTO) {
+          h = Jimp.AUTO
+        }
       }
 
       return img
-          .resize(options.width, options.height)
+          .resize(w, h)
           .getBufferAsync(Jimp.AUTO)
     })
 }

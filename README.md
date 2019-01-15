@@ -16,8 +16,9 @@ npm install --save imagemin-jimp
 ### usage
 ```js
 const jimpOptions = {
-  width: 500,
-  height: 500,
+  width: 2000, // default max width
+  height: 1000, // default max height
+  grow: false, // pass true to make images larger than they are
 }
 
 imagemin(input, output, {
