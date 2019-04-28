@@ -16,7 +16,7 @@
     "node": ">=6"
   },
   "devDependencies": {
-    "@magic/test": "0.0.10"
+    "@magic/test": "0.0.11"
   },
   "files": [
     "src"
