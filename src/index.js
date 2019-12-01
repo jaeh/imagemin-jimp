@@ -20,35 +20,32 @@ module.exports = options => data => {
     return Promise.reject(new TypeError('Expected a buffer'))
   }
 
-  return Jimp.read(data)
-    .then(img => {
-      let w = options.width
-      let h = options.height
-      const isPortrait = img.bitmap.width > img.bitmap.height
+  return Jimp.read(data).then(img => {
+    let w = options.width
+    let h = options.height
+    const isPortrait = img.bitmap.width > img.bitmap.height
 
-      // image should not grow
-      if (!options.grow) {
-        if (img.bitmap.width < options.width) {
-          w = img.bitmap.width
-        }
-        if (img.bitmap.height < options.height) {
-          h = img.bitmap.height
-        }
+    // image should not grow
+    if (!options.grow) {
+      if (img.bitmap.width < options.width) {
+        w = img.bitmap.width
       }
-
-      // setting the smaller dimension to auto to prevent stretching
-      if (isPortrait) {
-        if (h !== Jimp.AUTO) {
-          w = Jimp.AUTO
-        }
-      } else {
-        if (w !== Jimp.AUTO) {
-          h = Jimp.AUTO
-        }
+      if (img.bitmap.height < options.height) {
+        h = img.bitmap.height
       }
+    }
 
-      return img
-          .resize(w, h)
-          .getBufferAsync(Jimp.AUTO)
-    })
+    // setting the smaller dimension to auto to prevent stretching
+    if (isPortrait) {
+      if (h !== Jimp.AUTO) {
+        w = Jimp.AUTO
+      }
+    } else {
+      if (w !== Jimp.AUTO) {
+        h = Jimp.AUTO
+      }
+    }
+
+    return img.resize(w, h).getBufferAsync(Jimp.AUTO)
+  })
 }
